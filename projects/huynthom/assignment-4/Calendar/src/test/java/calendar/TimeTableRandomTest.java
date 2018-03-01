@@ -125,10 +125,13 @@ public class TimeTableRandomTest {
 				 listAppts.add(appt);
 				 listAppts.add(appt3);
 
-				 GregorianCalendar today = new GregorianCalendar(startYear, month, day);
-				 GregorianCalendar tomorrow = new GregorianCalendar(startYear, month, day+5);
+				 GregorianCalendar today = new GregorianCalendar(year, month, day);
+				 GregorianCalendar tomorrow = new GregorianCalendar(year, month, day+5);
+				 //GregorianCalendar yesterday = new GregorianCalendar(year, month, day -1);
+
 
 				 timetable.getApptRange(listAppts, today, tomorrow);
+				 //timetable.getApptRange(listAppts, today, yesterday);
 
 				 timetable.deleteAppt(listAppts, null);
 				 timetable.deleteAppt(listAppts, appt);
@@ -151,6 +154,99 @@ public class TimeTableRandomTest {
 		 System.out.println("Done testing...");
 
 	 }
+
+	@Test
+	public void randomtest()  throws Throwable  {
+
+
+		long startTime = Calendar.getInstance().getTimeInMillis();
+		long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
+
+
+		System.out.println("Start testing...");
+
+		try{
+			for (int iteration = 0; elapsed < TestTimeout; iteration++) {
+				long randomseed =System.currentTimeMillis(); //10
+				//			System.out.println(" Seed:"+randomseed );
+				Random random = new Random(randomseed);
+
+				//test invalid values
+				int startHour=ValuesGenerator.getRandomIntBetween(random, -1, 27);
+				int startMinute=ValuesGenerator.getRandomIntBetween(random, -1, 65);
+				int startDay=ValuesGenerator.getRandomIntBetween(random, -1, 50);
+				int startMonth=ValuesGenerator.getRandomIntBetween(random, 1, 12);
+				int startYear=ValuesGenerator.RandInt(random);
+				String title="Birthday Party";
+				String description="This is my birthday party.";
+				// System.out.println("Random day is " + startDay2);
+				Appt appt = new Appt(startHour,
+						startMinute ,
+						startDay ,
+						startMonth ,
+						startYear ,
+						title,
+						description);
+
+				int startHour2=ValuesGenerator.RandInt(random);
+				int startMinute2=ValuesGenerator.RandInt(random);
+				int startDay2=ValuesGenerator.RandInt(random);
+				int startMonth2=ValuesGenerator.getRandomIntBetween(random, 1, 11);
+				int startYear2=ValuesGenerator.RandInt(random);
+				String title2="Birthday Party";
+				String description2="This is my birthday party.";
+				//Construct a new Appointment object with the initial data
+				Appt appt2 = new Appt(startHour2,
+						startMinute2 ,
+						startDay2 ,
+						startMonth2 ,
+						startYear2 ,
+						title2,
+						description2);
+				Appt appt3 = new Appt(100,
+						100 ,
+						startDay2 ,
+						startMonth2 ,
+						startYear2 ,
+						title2,
+						description2);
+				int year=ValuesGenerator.RandInt(random);
+				int month = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+				int day = ValuesGenerator.getRandomIntBetween(random, 1, 28);
+				//int month2 = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+
+				LinkedList<Appt> listAppts = new LinkedList<Appt>();
+				LinkedList<Appt> nullAppts = null;
+				TimeTable timetable = new TimeTable();
+
+				listAppts.add(appt);
+				listAppts.add(appt);
+				listAppts.add(appt3);
+
+				GregorianCalendar today = new GregorianCalendar(startYear, month, day);
+				GregorianCalendar tomorrow = new GregorianCalendar(startYear, month, day+5);
+				GregorianCalendar yesterday = new GregorianCalendar(startYear, month, day -1);
+
+
+				//timetable.getApptRange(listAppts, today, tomorrow);
+				timetable.getApptRange(listAppts, today, yesterday);
+
+
+
+
+
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				if((iteration%10000)==0 && iteration!=0 )
+					System.out.println("elapsed time: "+ elapsed + " of "+TestTimeout);
+
+			}
+		}catch(NullPointerException e){
+
+		}
+
+		System.out.println("Done testing...");
+
+	}
 
 
 
