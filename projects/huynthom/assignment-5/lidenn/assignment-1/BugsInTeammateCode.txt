@@ -1,0 +1,21 @@
+Bug Reports
+Bug 1:
+isValid(..) in Appt.java
+Line 118
+if(startMinute>0 || startMinute< 59)
+The operators were reversed from the correct code. This is it a subtle bug that makes the program not able to check if startMinute is valid.
+It should be:
+if(startMinute<0 || startMinute > 59)
+
+Bug 2:
+getAppRange (...) in TimeTable.java
+Line 53
+for(int i =0; i<=appt.size(); i++) 
+The equal sign after the < operator can cause a segmentation fault if the size of the linked list of appts is larger than appts.size.
+Correct code: for(int i =0; i<appt.size(); i++) 
+
+Bug 3:
+IsLeapYear(...) in CalendarUtil.java
+Return false #Line 58
+Return true #Line 61
+The return values were swapped. This results in incorrect leap years.
